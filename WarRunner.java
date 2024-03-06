@@ -131,6 +131,7 @@ public class WarRunner {
         System.out
                 .println("The computer drew a " + computerHand.get(top).rank() + " of " + computerHand.get(top).suit());
         if (playerHand.get(top).pointValue() > computerHand.get(top).pointValue()) {
+            // TODO: Make it bring the players cards to the back too
             for (int i = 0; i < 4 * recursion; i++)
                 playerHand.add(computerHand.remove(0));
             System.out.println(
