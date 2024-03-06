@@ -95,12 +95,13 @@ public class WarRunner {
      * 
      * @param hand1
      * @param hand2
+     * @param recursion - Must be 1
      */
     public static void declareWar(ArrayList<Card> hand1, ArrayList<Card> hand2, int recursion) {
-        if (hand1.get(3).pointValue() > hand2.get(3).pointValue()) {
-            // Gets the atm of cards of 4*recursion
+        if (hand1.get(3).pointValue() > hand2.get(3).pointValue()) { // TODO: Change the literal value 
+            for(int i = 0; i < 4*recursion; i++) hand1.add(hand2.remove(0));
         } else if (hand1.get(3).pointValue() < hand2.get(3).pointValue()) {
-            // Gets the atm of cards of 4*recursion
+            for(int i = 0; i < 4*recursion; i++) hand2.add(hand1.remove(0));
         } else {
             if (!(canDeclareWar(hand1, recursion + 1))) 
             if (!(canDeclareWar(hand2, recursion + 1)))
