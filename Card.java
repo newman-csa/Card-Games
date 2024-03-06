@@ -88,6 +88,6 @@ public class Card {
      */
     @Override
     public String toString() {
-        return suit + " of " + rank + " (point value = " + pointValue + ")";
+        return suit + " of " + rank + " (point value = " + pointValue + ")\n";
     }
 }
