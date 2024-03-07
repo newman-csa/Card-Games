@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,13 +49,14 @@ public class WarRunner {
 
         // Action Loop
         while (playerHand.size() != 0 && computerHand.size() != 0) {
-            System.out.println("\nPress 'E' to fight another battle or 'S' to shuffle your deck!");
+            System.out.println("\nPress [Enter] to fight another battle or 'S' to shuffle your deck!");
             String userInput = scn.nextLine();
 
-            if (userInput.equals("S")) {
+            if (userInput.equalsIgnoreCase("S")) {
                 shuffleHand(playerHand);
                 System.out.println("Your deck has been shuffled");
-            } else if (!(userInput.equals("E"))) {
+                continue;
+            } else if (!(userInput.isEmpty())) {
                 continue;
             }
 
@@ -78,30 +78,28 @@ public class WarRunner {
                 System.out.println("The computer won 2 cards! Deck sizes: " + playerHand.size() + " (yours) vs. "
                         + computerHand.size() + " (computer's)");
             } else {
-                if (!(canDeclareWar(playerHand, 1))) {
+                if (!(canDeclareWar(playerHand))) {
                     System.out.println("The player only has " + playerHand.size() + " cards left");
                     System.out.println("Not enough to declare war, so the computer wins.");
                     break;
-                } else if (!(canDeclareWar(computerHand, 1))) {
+                } else if (!(canDeclareWar(computerHand))) {
                     System.out.println("The computer only has " + computerHand.size() + " cards left");
                     System.out.println("Not enough to declare war, so the player wins.");
                     break;
                 } else {
                     System.out.println("It's a tie! Battle Again!\n" + //
                             "You and the computer each lay down 3 cards.");
-                    declareWar(playerHand, computerHand, 1);
+                    declareWar(playerHand, computerHand);
                 }
             }
 
             // Check if dead
             if (playerHand.size() == 0) {
-                System.out.println("The player has no more cards,");
-                System.out.println("The computer wins");
+                System.out.println("The player has no more cards, the computer wins");
             } else if (computerHand.size() == 0) {
-                System.out.println("The computer has no more cards,");
-                System.out.println("The player wins");
+                System.out.println("The computer has no more cards, the player wins");
             }
-            System.out.println("-----------------------------------------------------------------");
+            System.out.println("\n-----------------------------------------------------------------");
         }
 
     }
@@ -118,6 +116,10 @@ public class WarRunner {
         return hand.size() >= 4 * recursion;
     }
 
+    public static boolean canDeclareWar(ArrayList<Card> hand) {
+        return canDeclareWar(hand, 1);
+    }
+
     /**
      * Assumes both hands have >= 4 cards
      * 
@@ -126,18 +128,21 @@ public class WarRunner {
      * @param recursion    - Must be 1
      */
     public static void declareWar(ArrayList<Card> playerHand, ArrayList<Card> computerHand, int recursion) {
-        int top = (recursion - 1 * 4) + 3;
+        int top = (recursion - 1) * 4 + 3;
         System.out.println("\nYou drew a " + playerHand.get(top).rank() + " of " + playerHand.get(top).suit());
         System.out
                 .println("The computer drew a " + computerHand.get(top).rank() + " of " + computerHand.get(top).suit());
         if (playerHand.get(top).pointValue() > computerHand.get(top).pointValue()) {
-            // TODO: Make it bring the players cards to the back too
+            for (int i = 0; i < 4 * recursion; i++)
+                playerHand.add(playerHand.remove(0));
             for (int i = 0; i < 4 * recursion; i++)
                 playerHand.add(computerHand.remove(0));
             System.out.println(
                     "The player won " + recursion * 8 + " cards! Deck sizes: " + playerHand.size() + " (yours) vs. "
                             + computerHand.size() + " (computer's)");
         } else if (playerHand.get(top).pointValue() < computerHand.get(top).pointValue()) {
+            for (int i = 0; i < 4 * recursion; i++)
+                computerHand.add(computerHand.remove(0));
             for (int i = 0; i < 4 * recursion; i++)
                 computerHand.add(playerHand.remove(0));
             System.out.println(
@@ -152,9 +157,13 @@ public class WarRunner {
                 System.out.println("Not enough to declare war, so the player wins.");
             } else { // HOW TO Recursion.exe
                 System.out.println("It's a tie! Battle Again!\n" + //
-                        "You and the computer each lay down 3 cards.");
+                        "You and the computer each lay down 4 cards.");
                 declareWar(playerHand, computerHand, recursion + 1);
             }
         }
+    }
+
+    public static void declareWar(ArrayList<Card> playerHand, ArrayList<Card> computerHand) {
+        declareWar(playerHand, computerHand, 1);
     }
 }
