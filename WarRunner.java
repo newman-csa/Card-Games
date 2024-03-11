@@ -33,7 +33,7 @@ public class WarRunner {
         ArrayList<Card> playerHand = new ArrayList<>();
         ArrayList<Card> computerHand = new ArrayList<>();
 
-        int atmCards = beginningDeck.getSize() / 2;
+        int atmCards = beginningDeck.size() / 2;
         for (int i = 0; i < atmCards; i++) {
             playerHand.add(beginningDeck.deal());
             computerHand.add(beginningDeck.deal());

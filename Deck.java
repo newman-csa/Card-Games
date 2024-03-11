@@ -22,7 +22,7 @@ public class Deck {
         return cards;
     }
 
-    public int getSize() {
+    public int size() {
         return size;
     }
 
