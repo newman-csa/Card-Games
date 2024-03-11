@@ -22,10 +22,10 @@ public class DeckTester {
         }
 
         
-        System.out.println(sudoHanafudaDeck.getSize());
+        System.out.println(sudoHanafudaDeck.size());
         sudoHanafudaDeck.deal();
-        System.out.println(sudoHanafudaDeck.getSize());
+        System.out.println(sudoHanafudaDeck.size());
         sudoHanafudaDeck.deal();
-        System.out.println(sudoHanafudaDeck.getSize());
+        System.out.println(sudoHanafudaDeck.size());
     }
 }

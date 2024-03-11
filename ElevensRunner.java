@@ -24,10 +24,10 @@ public class ElevensRunner {
                         + game.cardAt(7) + "\t" + game.cardAt(8) + "\t");
                 System.out.print("Enter two or three cards to remove: ");
                 input = parseInput(scn.nextLine());
+                // TODO: Subtract 1 from each index
                 System.out.println();
 
                 if (game.isLegal(input)) {
-                    System.out.println("Input Broken");
                     break;
                 }
             }
