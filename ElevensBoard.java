@@ -242,9 +242,12 @@ public class ElevensBoard {
     }
 
     private boolean containsPairSum11(Card[] board) {
-        for (Card card : board) {
+        for (Card card1 : board) {
             for (Card card2 : board) {
-                if (card.rank() == card2.rank()) {
+                if (card1.equals(card2)) {
+                    continue;
+                }
+                if (card1.rank() == card2.rank()) {
                     return true;
                 }
             }
