@@ -231,7 +231,7 @@ public class ElevensBoard {
      */
     private boolean containsPairSum11(List<Integer> selectedCards) {
         if (selectedCards.size() == 2) {
-            if (cardAt(selectedCards.get(0)).equals(cardAt(selectedCards.get(1)))) {
+            if (cardAt(selectedCards.get(0)).rank() == cardAt(selectedCards.get(1)).rank()) {
                 if (cardAt(selectedCards.get(0)).rank() != "J" && cardAt(selectedCards.get(0)).rank() != "Q"
                         && cardAt(selectedCards.get(0)).rank() != "K") {
                     return true;
@@ -244,7 +244,7 @@ public class ElevensBoard {
     private boolean containsPairSum11(Card[] board) {
         for (Card card : board) {
             for (Card card2 : board) {
-                if (card.rank().equals(card2.rank())) {
+                if (card.rank() == card2.rank()) {
                     return true;
                 }
             }

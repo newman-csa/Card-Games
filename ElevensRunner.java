@@ -32,7 +32,6 @@ public class ElevensRunner {
                     break;
                 } else {
                     System.out.println("Illegal");
-                    break;
                 }
             }
 
