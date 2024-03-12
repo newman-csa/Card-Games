@@ -1,18 +1,15 @@
 import java.util.List;
 import java.util.ArrayList;
 
-
 /**
  * The ElevensBoard class represents the board in a game of Elevens.
  */
 public class ElevensBoard {
 
-
     /**
      * The size (number of cards) on the board.
      */
     private static final int BOARD_SIZE = 9;
-
 
     /**
      * The ranks of the cards for this game to be sent to the deck.
@@ -20,36 +17,30 @@ public class ElevensBoard {
     private static final String[] RANKS = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q",
             "K" };
 
-
     /**
      * The suits of the cards for this game to be sent to the deck.
      */
     private static final String[] SUITS = { "♠", "♥", "♦", "♣" };
-
 
     /**
      * The values of the cards for this game to be sent to the deck.
      */
     private static final int[] POINT_VALUES = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0, 0 };
 
-
     /**
      * The cards on this board.
      */
     private Card[] cards;
-
 
     /**
      * The deck of cards being used to play the current game.
      */
     private Deck deck;
 
-
     /**
      * Flag used to control debugging print statements.
      */
     private static final boolean I_AM_DEBUGGING = false;
-
 
     /**
      * Creates a new <code>ElevensBoard</code> instance.
@@ -64,7 +55,6 @@ public class ElevensBoard {
         dealMyCards();
     }
 
-
     /**
      * Start a new game by shuffling the deck and
      * dealing some cards to this board.
@@ -73,7 +63,6 @@ public class ElevensBoard {
         deck.shuffle();
         dealMyCards();
     }
-
 
     /**
      * Accesses the size of the board.
@@ -85,7 +74,6 @@ public class ElevensBoard {
     public int size() {
         return cards.length;
     }
-
 
     /**
      * Determines if the board is empty (has no cards).
@@ -101,7 +89,6 @@ public class ElevensBoard {
         return true;
     }
 
-
     /**
      * Deal a card to the kth position in this board.
      * If the deck is empty, the kth card is set to null.
@@ -112,7 +99,6 @@ public class ElevensBoard {
         cards[k] = deck.deal();
     }
 
-
     /**
      * Accesses the deck's size.
      *
@@ -121,7 +107,6 @@ public class ElevensBoard {
     public int deckSize() {
         return deck.size();
     }
-
 
     /**
      * Accesses a card on the board.
@@ -132,7 +117,6 @@ public class ElevensBoard {
     public Card cardAt(int k) {
         return cards[k];
     }
-
 
     /**
      * Replaces selected cards on the board by dealing new cards.
@@ -145,7 +129,6 @@ public class ElevensBoard {
             deal(k.intValue());
         }
     }
-
 
     /**
      * Gets the indexes of the actual (non-null) cards on the board.
@@ -163,7 +146,6 @@ public class ElevensBoard {
         return selected;
     }
 
-
     /**
      * Generates and returns a string representation of this board.
      *
@@ -176,7 +158,6 @@ public class ElevensBoard {
         }
         return s;
     }
-
 
     /**
      * Determine whether or not the game has been won,
@@ -197,7 +178,6 @@ public class ElevensBoard {
         return false;
     }
 
-
     /**
      * Determines if the selected cards form a valid group for removal.
      * In Elevens, the legal groups are (1) a pair of non-face cards
@@ -215,7 +195,6 @@ public class ElevensBoard {
         return false;
     }
 
-
     /**
      * Determine if there are any legal plays left on the board.
      * In Elevens, there is a legal play if the board contains
@@ -232,7 +211,6 @@ public class ElevensBoard {
         return false;
     }
 
-
     /**
      * Deal cards to this board to start the game.
      */
@@ -241,7 +219,6 @@ public class ElevensBoard {
             cards[k] = deck.deal();
         }
     }
-
 
     /**
      * Check for an 11-pair in the selected cards.
@@ -254,16 +231,15 @@ public class ElevensBoard {
      */
     private boolean containsPairSum11(List<Integer> selectedCards) {
         if (selectedCards.size() == 2) {
-            if (cardAt(selectedCards.get(0)).rank() != "jack" && cardAt(selectedCards.get(0)).rank() != "queen"
-                    && cardAt(selectedCards.get(0)).rank() != "king") {
-                return true;
+            if (cardAt(selectedCards.get(0)).equals(cardAt(selectedCards.get(1)))) {
+                if (cardAt(selectedCards.get(0)).rank() != "J" && cardAt(selectedCards.get(0)).rank() != "Q"
+                        && cardAt(selectedCards.get(0)).rank() != "K") {
+                    return true;
+                }
             }
         }
-
-
         return false;
     }
-
 
     private boolean containsPairSum11(Card[] board) {
         for (Card card : board) {
@@ -275,7 +251,6 @@ public class ElevensBoard {
         }
         return false;
     }
-
 
     /**
      * Check for a JQK in the selected cards.
@@ -308,9 +283,7 @@ public class ElevensBoard {
         }
         return has == 3;
 
-
     }
-
 
     private boolean containsJQK(Card[] board) {
         int has = 0;
@@ -333,7 +306,6 @@ public class ElevensBoard {
             }
         }
         return has == 3;
-
 
     }
 }

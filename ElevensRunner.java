@@ -28,6 +28,10 @@ public class ElevensRunner {
                 System.out.println();
 
                 if (game.isLegal(input)) {
+                    System.out.println("Legal");
+                    break;
+                } else {
+                    System.out.println("Illegal");
                     break;
                 }
             }
@@ -50,8 +54,8 @@ public class ElevensRunner {
                 .mapToInt(Integer::parseInt)
                 .toArray();
 
-        Arrays.stream(ints).min().getAsInt();
-        ArrayList<Integer> out = new ArrayList<>(Arrays.stream(ints).boxed().toList());
+        ArrayList<Integer> out = new ArrayList<>(Arrays.stream(ints).map(n -> n - 1).boxed().toList());
+        System.out.println(out);
         return out;
     }
 }
