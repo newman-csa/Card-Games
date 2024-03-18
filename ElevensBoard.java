@@ -14,8 +14,7 @@ public class ElevensBoard {
     /**
      * The ranks of the cards for this game to be sent to the deck.
      */
-    private static final String[] RANKS = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q",
-            "K" };
+    private static final String[] RANKS = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
 
     /**
      * The suits of the cards for this game to be sent to the deck.
@@ -52,7 +51,6 @@ public class ElevensBoard {
             System.out.println(deck);
             System.out.println("----------");
         }
-        dealMyCards();
     }
 
     /**
@@ -205,6 +203,11 @@ public class ElevensBoard {
      *         false otherwise.
      */
     public boolean anotherPlayIsPossible() {
+        if (I_AM_DEBUGGING) {
+            System.out.println("BOARD:");
+            System.out.println("containsJQK: " + containsJQK(cards));
+            System.out.println("containsPairSum11: " + containsPairSum11(cards));
+        }
         if (containsJQK(cards) || containsPairSum11(cards)) {
             return true;
         }
@@ -244,11 +247,14 @@ public class ElevensBoard {
     private boolean containsPairSum11(Card[] board) {
         for (Card card1 : board) {
             for (Card card2 : board) {
-                if (card1.equals(card2)) {
+                if (card1 == null || card2 == null || card1.equals(card2)) {
                     continue;
                 }
+
                 if (card1.rank() == card2.rank()) {
-                    return true;
+                    if (card1.rank() != "J" && card1.rank() != "Q" && card1.rank() != "K") {
+                        return true;
+                    }
                 }
             }
         }
@@ -267,19 +273,19 @@ public class ElevensBoard {
     private boolean containsJQK(List<Integer> selectedCards) {
         int has = 0;
         for (int num : selectedCards) {
-            if (cardAt(num).rank() == "jack") {
+            if (cardAt(num).rank() == "J") {
                 has++;
                 break;
             }
         }
         for (int num : selectedCards) {
-            if (cardAt(num).rank() == "queen") {
+            if (cardAt(num).rank() == "Q") {
                 has++;
                 break;
             }
         }
         for (int num : selectedCards) {
-            if (cardAt(num).rank() == "king") {
+            if (cardAt(num).rank() == "K") {
                 has++;
                 break;
             }
@@ -290,20 +296,30 @@ public class ElevensBoard {
 
     private boolean containsJQK(Card[] board) {
         int has = 0;
+
         for (Card card : board) {
-            if (card.rank() == "jack") {
+            if (card == null) {
+                continue;
+            }
+            if (card.rank() == "J") {
                 has++;
                 break;
             }
         }
         for (Card card : board) {
-            if (card.rank() == "queen") {
+            if (card == null) {
+                continue;
+            }
+            if (card.rank() == "Q") {
                 has++;
                 break;
             }
         }
         for (Card card : board) {
-            if (card.rank() == "king") {
+            if (card == null) {
+                continue;
+            }
+            if (card.rank() == "K") {
                 has++;
                 break;
             }

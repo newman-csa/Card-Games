@@ -45,4 +45,12 @@ public class Deck {
         }
     }
 
+    public String toString() {
+        String out = "";
+        for (Card card : cards) {
+            out += card + "\n";
+        }
+        return out;
+    }
+
 }

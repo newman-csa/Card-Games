@@ -2,11 +2,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+
+// TODO: Fix Null Pointer Exceptions
 public class ElevensRunner {
+
+    static ElevensBoard game;
+
     public static void main(String[] args) {
-        // chcp 65001
         Scanner scn = new Scanner(System.in);
-        ElevensBoard game = new ElevensBoard();
+        game = new ElevensBoard();
 
         // Set New Playable Board
         game.newGame();
@@ -18,20 +22,13 @@ public class ElevensRunner {
         while (!(game.gameIsWon()) && game.anotherPlayIsPossible()) {
             // Parse Input
             while (true) {
-                System.out.println("There are currently " +game.deckSize() + " cards left.");
-                System.out.println(" 1\t 2\t 3\t 4\t 5\t 6\t 7\t 8\t 9\t");
-                System.out.println(game.cardAt(0) + "\t" + game.cardAt(1) + "\t" + game.cardAt(2) + "\t"
-                        + game.cardAt(3) + "\t" + game.cardAt(4) + "\t" + game.cardAt(5) + "\t" + game.cardAt(6) + "\t"
-                        + game.cardAt(7) + "\t" + game.cardAt(8) + "\t");
+                printHand();
                 System.out.print("Enter two or three cards to remove: ");
                 input = parseInput(scn.nextLine());
                 System.out.println();
 
                 if (game.isLegal(input)) {
-                    System.out.println("Legal");
                     break;
-                } else {
-                    System.out.println("Illegal");
                 }
             }
 
@@ -39,12 +36,22 @@ public class ElevensRunner {
 
             if (game.gameIsWon()) {
                 System.out.println("Congratulations, You Win!");
-                System.out.println("\\(￣︶￣*\\))");
+                System.out.println("\\(￣ ￣*\\))");
             } else if (!(game.anotherPlayIsPossible())) {
-                System.out.println("The board if no longer solvable");
+                printHand();
+                System.out.println("The board is no longer solvable");
                 System.out.println("You Lose T-T");
             }
         }
+    }
+
+    public static void printHand() {
+        System.out.println("There are currently " + game.deckSize() + " cards left.");
+        System.out.println("  1     2     3     4     5     6     7     8     9    ");
+        System.out.println(game.cardAt(0) + "   " + game.cardAt(1) + "   " + game.cardAt(2) + "   "
+                + game.cardAt(3) + "   " + game.cardAt(4) + "   " + game.cardAt(5) + "   " + game.cardAt(6) + "   "
+                + game.cardAt(7) + "   " + game.cardAt(8) + "   ");
+        
     }
 
     public static ArrayList<Integer> parseInput(String input) {
@@ -54,7 +61,6 @@ public class ElevensRunner {
                 .toArray();
 
         ArrayList<Integer> out = new ArrayList<>(Arrays.stream(ints).map(n -> n - 1).boxed().toList());
-        System.out.println(out);
         return out;
     }
 }
